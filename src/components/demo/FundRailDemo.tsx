@@ -826,7 +826,11 @@ export function FundRailDemo() {
                   </div>
                 )}
                 {isRun && sc.route !== "coin" && done("route") && sc.route !== "queued" && (
-                  <p className="text-[11.5px] text-ink-500">This fund does not accept the HSBC stablecoin yet, so HSBC settled it with tokenised deposits instead. No action needed.</p>
+                  <p className="text-[11.5px] text-ink-500">
+                    {sc.inputs.coinPaused
+                      ? "Stablecoin issuance was paused, so HSBC settled this order with tokenised deposits instead. No action needed."
+                      : "This fund does not accept the HSBC stablecoin yet, so HSBC settled it with tokenised deposits instead. No action needed."}
+                  </p>
                 )}
                 {(o.positionAfter || (isRun && phase === "completed")) && (
                   <div className="rounded-md border border-emerald-500 bg-emerald-100 px-2.5 py-2">
@@ -1042,7 +1046,12 @@ export function FundRailDemo() {
 
   const bankHeader = (
     <>
-      <div className={cn("mb-3 rounded-lg border px-3 py-2", view.route === "queued" ? "border-amber-500/60 bg-amber-500/10" : "border-blue-500/60 bg-blue-500/10")}>
+      <div className={cn("mb-3 rounded-lg border px-3 py-2", view.route === "coin" ? "border-blue-500/60 bg-blue-500/10" : "border-amber-500/60 bg-amber-500/10")}>
+        {view.route !== "coin" && (
+          <p className="mb-1 inline-block rounded-full bg-amber-500/20 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-amber-400">
+            Rerouted · the stablecoin is not used
+          </p>
+        )}
         <p className="text-[12px] font-semibold text-paper-0">
           HSBC settlement-routing service: {routeInfo[view.route].label}
           <span className="ml-1.5 font-normal text-ink-400">

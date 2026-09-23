@@ -128,7 +128,9 @@ export function BackendPanel({
                   "transition-colors",
                   s === "active" && "bg-blue-500/10",
                   s === "failed" && "bg-rose-500/10",
-                  s === "held" && "bg-amber-500/10"
+                  s === "held" && "bg-amber-500/10",
+                  // A step that left the stablecoin route keeps its own colour once it has run.
+                  st.tone === "reroute" && s !== "pending" && "border-l-2 border-l-amber-500 bg-amber-500/10"
                 )}
               >
                 <button
@@ -142,7 +144,7 @@ export function BackendPanel({
                     <StatusIcon status={s} />
                   </span>
                   <div className="min-w-0 flex-1">
-                    <p className={cn("text-[12.5px] font-medium", s === "pending" ? "text-ink-400" : "text-paper-0", !show && "truncate")}>
+                    <p className={cn("text-[12.5px] font-medium", s === "pending" ? "text-ink-400" : st.tone === "reroute" ? "text-amber-400" : "text-paper-0", !show && "truncate")}>
                       {st.label}
                       {show && (
                         <span className="ml-2 text-[10.5px] font-normal text-ink-400">

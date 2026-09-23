@@ -26,6 +26,8 @@ export interface StageDef {
   shape?: "decision" | "commit";
   /** Extra incoming edges in the flow chart, e.g. both settlement sides joining the commit. */
   joinsFrom?: string[];
+  /** Marks a step where the order left the stablecoin route, so it reads differently. */
+  tone?: "reroute";
 }
 
 export interface ReversalDef {

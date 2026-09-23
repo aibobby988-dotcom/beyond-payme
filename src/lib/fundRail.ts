@@ -198,6 +198,8 @@ export interface RailScenario extends Scenario {
   route: Route;
   u: number;
   queued: boolean;
+  /** The conditions this run was built under, so the panels can explain the route. */
+  inputs: RouteInputs;
 }
 
 export function buildScenario(o: OrderSpec, inputs: RouteInputs, injected: Injected): RailScenario {
@@ -217,7 +219,7 @@ export function buildScenario(o: OrderSpec, inputs: RouteInputs, injected: Injec
       ? { id: "authcheck", label: "Instruction from treasury system verified", systemIds: ["erp", "auth"], milestone: 0, detail: `Order received from Party A's treasury system over HSBC's API; message signature and client certificate verified; already approved inside Party A's own system (${o.approvers.join(", ")})`, clientSays: "Received from your treasury system — processing." }
       : { id: "authcheck", label: "Approvals verified", systemIds: ["auth", "portal"], milestone: 0, detail: `HSBCnet approvals verified against Party A's own rules: ${o.approvers.join(", ")}${o.approvers.length === 1 ? " (sole transaction control, as Party A configured)" : ""}${o.amount > MANDATE ? "; group A signature required above the HK$100m signature limit" : ""}`, clientSays: "Approved — processing your order." },
     { id: "screen", shape: "decision", label: "Screening & travel rule", systemIds: ["screen"], milestone: 0, detail: `Party A and ${fund.short}'s dealing wallet screened — clear; originator and beneficiary data attached to the transfer`, clientSays: "Processing your order." },
-    { id: "route", shape: "decision", label: "Settlement route chosen", systemIds: ["router"], milestone: 0, detail: `${routeInfo[route].label}. ${routeReason(route, inputs)}`, clientSays: "Processing your order." },
+    { id: "route", shape: "decision", label: coin ? "Settlement route chosen" : "Rerouted — the stablecoin is not used", systemIds: ["router"], milestone: 0, tone: coin ? undefined : "reroute", detail: `${routeInfo[route].label}. ${routeReason(route, inputs)}`, clientSays: "Processing your order." },
   ];
 
   const interbank: StageDef = {
@@ -236,7 +238,7 @@ export function buildScenario(o: OrderSpec, inputs: RouteInputs, injected: Injec
       ...head,
       coin
         ? { id: "fundin", label: "Stablecoin issued to the client's HSBC-held wallet", systemIds: ["mint", "reserve", "core", "wallet"], milestone: 1, detail: `${hkd(o.amount)} debited from ${ACCOUNT} into the segregated reserve pool; ${hkd(o.amount)} of stablecoin issued to Party A's custodial wallet ${wallet}`, clientSays: `${hkd(o.amount)} reserved from ${ACCOUNT}.` }
-        : { id: "fundin", label: "Deposits tokenised", systemIds: ["tds", "core"], milestone: 1, detail: `${hkd(o.amount)} held from ${ACCOUNT} as tokenised deposits`, clientSays: `${hkd(o.amount)} reserved from ${ACCOUNT}.` },
+        : { id: "fundin", label: "Deposits tokenised", systemIds: ["tds", "core"], milestone: 1, tone: "reroute", detail: `${hkd(o.amount)} held from ${ACCOUNT} as tokenised deposits`, clientSays: `${hkd(o.amount)} reserved from ${ACCOUNT}.` },
       { id: "lock", label: "Cash set aside for settlement", systemIds: ["dvp"], milestone: 1, detail: `${hkd(o.amount)} of ${asset} set aside for order ${o.ref} — still Party A's money until the fund delivers the units`, clientSays: `${hkd(o.amount)} reserved from ${ACCOUNT}.` },
       { id: "sendta", label: "Order sent to transfer agent", systemIds: ["routing"], milestone: 2, detail: `${fund.hsbcPartner ? "HSBC, as onboarded distributor, sends " : ""}ISO 20022 ${setrOut} to ${fund.servicer} for ${fund.short}; settlement instruction: DvP, ${asset}`, clientSays: "Sent to the fund." },
       { id: "accept", shape: "decision", label: "Order accepted by fund", systemIds: ["ta"], milestone: 2, detail: `Investor on register; class open; received before the ${fund.cutoff} cut-off; ${units(u)} units to be issued to unit wallet ${wallet}-U`, clientSays: "Accepted by the fund." },
@@ -260,7 +262,7 @@ export function buildScenario(o: OrderSpec, inputs: RouteInputs, injected: Injec
       { id: "commit", shape: "commit", joinsFrom: ["unitlock"], label: "Cash and fund units transfer together (DvP)", systemIds: crossInstitution ? ["dvp", "ta", "wallet", "ensemble"] : ["dvp", "ta", "wallet"], milestone: 3, ms: 1300, detail: `One transaction: units cancelled, ${asset} to Party A's custodial wallet ${wallet}${crossInstitution ? ", co-ordinated with " + fund.servicer + " on EnsembleTX" : ""}`, clientSays: "Settling — units and cash move together." },
       coin
         ? { id: "fundout", label: "Stablecoin redeemed and removed from circulation; HKD credited", systemIds: ["mint", "reserve", "core"], milestone: 3, detail: `${hkd(o.amount)} of coin burned; the same amount released from the reserve pool to ${ACCOUNT} at par`, clientSays: `Crediting ${hkd(o.amount)} to ${ACCOUNT}.` }
-        : { id: "fundout", label: "Deposits credited", systemIds: ["tds", "core"], milestone: 3, detail: `${hkd(o.amount)} credited to ${ACCOUNT}`, clientSays: `Crediting ${hkd(o.amount)} to ${ACCOUNT}.` },
+        : { id: "fundout", label: "Deposits credited", systemIds: ["tds", "core"], milestone: 3, tone: "reroute", detail: `${hkd(o.amount)} credited to ${ACCOUNT}`, clientSays: `Crediting ${hkd(o.amount)} to ${ACCOUNT}.` },
       { id: "post", label: "Posting & reserve check", systemIds: ["core", "recon"], milestone: 4, detail: coin ? "GL posted; stablecoins in circulation = reserve pool; included in today's reserve return to the HKMA" : "GL posted; deposit ledger and register agree", clientSays: "Confirmed." },
       { id: "confirm", label: "Confirmation received", systemIds: ["routing", "portal", "erp"], milestone: 4, detail: `${setrIn} received; contract note issued in HSBCnet; ERP notified`, clientSays: "Confirmed." },
     ];
@@ -305,5 +307,6 @@ export function buildScenario(o: OrderSpec, inputs: RouteInputs, injected: Injec
     route,
     u,
     queued: route === "queued",
+    inputs,
   };
 }
