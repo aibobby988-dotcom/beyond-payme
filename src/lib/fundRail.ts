@@ -138,7 +138,7 @@ export function buildSystems(fund: Fund): SystemDef[] {
     { id: "ta", name: fund.hsbcServiced ? "Transfer agent & register" : "Transfer / tokenisation agent", owner: fund.servicer, role: fund.hsbcServiced ? "HSBC runs the register — issues and cancels units" : "Another bank runs the register" },
     { id: "nav", name: "Fund administration · NAV", owner: fund.servicer, role: "Strikes NAV at the valuation point" },
     { id: "dvp", name: "Settlement lock — cash and units move together", owner: "Settlement", role: "Sets aside cash and fund units, then transfers both in one step — or neither" },
-    { id: "ensemble", name: "EnsembleTX", owner: "HKMA market infrastructure", role: "Interbank tokenised-deposit settlement; RTGS-backed in the pilot" },
+    { id: "ensemble", name: "EnsembleTX", owner: "HKMA market infrastructure", role: "HKMA settlement and interoperability layer between institutions' platforms: delivery-versus-payment across banks, tokenised deposits settled through RTGS in the pilot, moving to central bank money — and, per the 2026 Policy Address, regulated stablecoins as an accepted settlement asset for tokenised funds" },
     { id: "chats", name: "HKD CHATS (RTGS)", owner: "HKMA market infrastructure", role: "Interbank HKD settlement; business days" },
     { id: "core", name: "Core banking & general ledger", owner: "Books & reporting", role: "HKD accounts, holds, postings" },
     { id: "recon", name: "Reconciliation & regulatory reporting", owner: "Books & reporting", role: "Checks stablecoins in circulation match reserves; returns to the HKMA as licensee" },
@@ -153,7 +153,14 @@ export function buildGroups(fund: Fund, route: Route) {
     { owner: "HSBC fund services", ids: ["routing"] },
     { owner: fund.servicer, ids: ["ta", "nav"] },
     { owner: "Settlement", ids: ["dvp"] },
-    ...(route === "tds-crossbank" || route === "queued" ? [{ owner: "HKMA market infrastructure", ids: route === "queued" ? ["chats"] : ["ensemble"] }] : []),
+    // Anything that crosses institutions meets the HKMA's layer: the stablecoin route
+    // when the register sits at another bank, deposits when they move bank to bank,
+    // and CHATS when nothing digital is open.
+    ...(route === "queued"
+      ? [{ owner: "HKMA market infrastructure", ids: ["chats"] }]
+      : route === "tds-crossbank" || (route === "coin" && !fund.hsbcServiced)
+        ? [{ owner: "HKMA market infrastructure", ids: ["ensemble"] }]
+        : []),
     { owner: "Books & reporting", ids: ["core", "recon"] },
   ];
 }
@@ -200,6 +207,8 @@ export function buildScenario(o: OrderSpec, inputs: RouteInputs, injected: Injec
   const fund = fundBy(o.fund);
   const route = pickRoute(fund, inputs);
   const coin = route === "coin";
+  // Both legs on HSBC's own platform only when HSBC also runs the fund's register.
+  const crossInstitution = coin && !fund.hsbcServiced;
   const u = o.amount / fund.nav;
   const asset = routeInfo[route].asset;
   const setrOut = o.side === "subscribe" ? "setr.010 SubscriptionOrder" : "setr.004 RedemptionOrder";
@@ -237,7 +246,7 @@ export function buildScenario(o: OrderSpec, inputs: RouteInputs, injected: Injec
       { id: "valuation", label: "Waiting for valuation point", systemIds: ["nav"], milestone: 2, ms: 1600, detail: "Included in today's dealing; NAV struck at the valuation point (demo fast-forwards)", clientSays: "Awaiting today's valuation point." },
       { id: "price", label: "NAV struck", systemIds: ["nav"], milestone: 2, detail: `NAV HK$${fund.nav.toFixed(4)} (illustrative) → ${units(u)} units`, clientSays: "Priced." },
       ...(route === "tds-crossbank" ? [interbank] : []),
-      { id: "commit", shape: "commit", joinsFrom: ["lock"], label: "Cash and fund units transfer together (DvP)", systemIds: ["dvp", "ta", "wallet"], milestone: 3, ms: 1300, detail: coin ? `One ledger transaction: coin to ${fund.short}'s wallet at ${fund.servicer}, ${units(u)} units to ${wallet}-U · tx 0x7f3a…c21e` : `One transaction: ${asset} to ${fund.short}, ${units(u)} units to ${wallet}-U`, clientSays: "Settling — cash and units move together." },
+      { id: "commit", shape: "commit", joinsFrom: ["lock"], label: "Cash and fund units transfer together (DvP)", systemIds: crossInstitution ? ["dvp", "ta", "wallet", "ensemble"] : ["dvp", "ta", "wallet"], milestone: 3, ms: 1300, detail: coin ? `One transaction: coin to ${fund.short}'s wallet at ${fund.servicer}, ${units(u)} units to ${wallet}-U${crossInstitution ? ", co-ordinated across the two banks' platforms on EnsembleTX" : " — both sides on HSBC's own platform"} · tx 0x7f3a…c21e` : `One transaction: ${asset} to ${fund.short}, ${units(u)} units to ${wallet}-U`, clientSays: "Settling — cash and units move together." },
       { id: "post", label: "Posting & reserve check", systemIds: ["core", "recon"], milestone: 4, detail: coin ? "GL posted; stablecoins in circulation = reserve pool; included in today's reserve return to the HKMA" : "GL posted; deposit ledger and register agree", clientSays: "Confirmed." },
       { id: "confirm", label: "Confirmation received", systemIds: ["routing", "portal", "erp"], milestone: 4, detail: `${setrIn} received; contract note issued in HSBCnet; ERP notified`, clientSays: "Confirmed." },
     ];
@@ -251,7 +260,7 @@ export function buildScenario(o: OrderSpec, inputs: RouteInputs, injected: Injec
       { id: "price", label: "NAV struck", systemIds: ["nav"], milestone: 2, detail: `NAV HK$${fund.nav.toFixed(4)} (illustrative) → ${units(u)} units for ${hkd(o.amount)}`, clientSays: "Priced." },
       { id: "fundcash", label: "Fund's cash locked", systemIds: ["dvp"], milestone: 3, detail: `${hkd(o.amount)} of ${asset} from the fund locked for payment`, clientSays: "Settling." },
       ...(route === "tds-crossbank" ? [interbank] : []),
-      { id: "commit", shape: "commit", joinsFrom: ["unitlock"], label: "Cash and fund units transfer together (DvP)", systemIds: ["dvp", "ta", "wallet"], milestone: 3, ms: 1300, detail: `One transaction: units cancelled, ${asset} to Party A's custodial wallet ${wallet}`, clientSays: "Settling — units and cash move together." },
+      { id: "commit", shape: "commit", joinsFrom: ["unitlock"], label: "Cash and fund units transfer together (DvP)", systemIds: crossInstitution ? ["dvp", "ta", "wallet", "ensemble"] : ["dvp", "ta", "wallet"], milestone: 3, ms: 1300, detail: `One transaction: units cancelled, ${asset} to Party A's custodial wallet ${wallet}${crossInstitution ? ", co-ordinated with " + fund.servicer + " on EnsembleTX" : ""}`, clientSays: "Settling — units and cash move together." },
       coin
         ? { id: "fundout", label: "Stablecoin redeemed and removed from circulation; HKD credited", systemIds: ["mint", "reserve", "core"], milestone: 3, detail: `${hkd(o.amount)} of coin burned; the same amount released from the reserve pool to ${ACCOUNT} at par`, clientSays: `Crediting ${hkd(o.amount)} to ${ACCOUNT}.` }
         : { id: "fundout", label: "Deposits credited", systemIds: ["tds", "core"], milestone: 3, detail: `${hkd(o.amount)} credited to ${ACCOUNT}`, clientSays: `Crediting ${hkd(o.amount)} to ${ACCOUNT}.` },

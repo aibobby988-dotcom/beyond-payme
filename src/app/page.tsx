@@ -207,7 +207,7 @@ export default function Page() {
                 {[
                   ["What it is", "A regulated digital HKD, held only in approved, identified wallets and backed 1:1 by a segregated reserve.", "A deposit at HSBC, in token form. A claim on the bank, on the bank's balance sheet."],
                   ["Who can hold it", "Anyone identified and approved-wallet listed — including firms that don't bank with HSBC.", "HSBC clients only. Cross-bank movement needs EnsembleTX between participating banks."],
-                  ["Hours", "Any hour, including weekends, within HSBC's own settlement network.", "24/7 inside HSBC; cross-bank legs settle through RTGS during the Ensemble pilot, so business hours."],
+                  ["Hours", "Any hour, including weekends, for the payment itself. Where the fund's register sits at another bank, the delivery-versus-payment is co-ordinated on EnsembleTX, which is RTGS-backed until round-the-clock central bank money settlement arrives — targeted end-2026.", "24/7 inside HSBC; cross-bank legs settle through RTGS during the Ensemble pilot, so business hours."],
                   ["Interest", "None — licensed issuers may not pay holders interest.", "It is a deposit, so it can earn interest."],
                   ["Cost to the bank", "Issuing and redeeming, reserve management, attestation and reporting as a licensee.", "No new issuance machinery; uses the deposit ledger."],
                   ["Where the money sits", "Reserve assets stay with HSBC even after the stablecoin leaves.", "The deposit leaves HSBC when it moves to another bank."],
