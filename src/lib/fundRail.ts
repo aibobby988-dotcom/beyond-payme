@@ -139,7 +139,7 @@ export function buildSystems(fund: Fund): SystemDef[] {
     { id: "nav", name: "Fund administration · NAV", owner: fund.servicer, role: "Strikes NAV at the valuation point" },
     { id: "dvp", name: "Settlement lock — cash and units move together", owner: "Settlement", role: "Sets aside cash and fund units, then transfers both in one step — or neither" },
     { id: "ensemble", name: "EnsembleTX", owner: "HKMA market infrastructure", role: "HKMA settlement and interoperability layer between institutions' platforms: delivery-versus-payment across banks, tokenised deposits settled through RTGS in the pilot, moving to central bank money — and, per the 2026 Policy Address, regulated stablecoins as an accepted settlement asset for tokenised funds" },
-    { id: "chats", name: "HKD CHATS (RTGS)", owner: "HKMA market infrastructure", role: "Interbank HKD settlement; business days" },
+    { id: "chats", name: "HKD CHATS (RTGS)", owner: "HKMA market infrastructure", role: "Hong Kong's interbank HKD payment system: operated by HKICL, settled across the banks' own settlement accounts at the HKMA, where a payment becomes final. Business days only. A bank's \"CHATS payment\" is its client-facing access to this shared system, not a product of its own" },
     { id: "core", name: "Core banking & general ledger", owner: "Books & reporting", role: "HKD accounts, holds, postings" },
     { id: "recon", name: "Reconciliation & regulatory reporting", owner: "Books & reporting", role: "Checks stablecoins in circulation match reserves; returns to the HKMA as licensee" },
   ];
