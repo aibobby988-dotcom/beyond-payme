@@ -51,7 +51,7 @@ const releases = [
 ];
 
 const dependencies = [
-  { dep: "HSBC HKD stablecoin issuer platform (retail launch due H2 2026)", owner: "GPS Digital Money · issuer", when: "R0", note: "Build on it, don't fork it: one issuer, retail and institutional wallets.", level: "high" },
+  { dep: "HSBC HKD stablecoin issuer platform (retail launch due H2 2026)", owner: "GPS Digital Money · issuer", when: "R0", note: "Extend the platform already being delivered for the retail launch rather than stand up a second issuer — one issuance and reserve model across retail and institutional wallets.", level: "high" },
   { dep: "Fund enables the HSBC HKD stablecoin as an accepted settlement money", owner: "CSOP, with HSBC as trustee and registrar", when: "R1", note: "The one external decision in R1 — and HSBC already sits in the fund's service chain.", level: "med" },
   { dep: "OSL's six-month exclusive onboarding of the CSOP class (from 3 June 2026)", owner: "Legal · Product", when: "R1", note: "Check whether it covers direct subscriptions; it would lapse around early December.", level: "med" },
   { dep: "EnsembleTX DvP and 24/7 operation (targeted by end-2026)", owner: "HKMA · EnsembleTX", when: "R1–R2", note: "R1 can settle through the transfer agent; EnsembleTX is an upgrade, not a blocker.", level: "low" },
