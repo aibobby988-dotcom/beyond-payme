@@ -181,51 +181,6 @@ export default function Page() {
         <section id="package-a" className="scroll-mt-16 space-y-6">
           <FundRailDemo />
 
-          <div className="rounded-2xl border border-paper-200 bg-paper-0 p-5">
-            <p className="text-[14px] font-semibold text-charcoal-900">The client simply invests HKD — HSBC picks how it settles</p>
-            <p className="mt-1 text-[13px] text-ink-500">
-              The client simply invests HKD. HSBC selects the safest eligible settlement method in the background: the stablecoin
-              where reach between banks is needed, or tokenised deposits where they are simpler. Try the &ldquo;Stablecoin not
-              accepted&rdquo; scenario, or the controls on the bank side.
-            </p>
-            <div className="mt-3 overflow-x-auto">
-              <table className="w-full min-w-[760px] border-collapse text-left">
-                <thead>
-                  <tr className="border-b border-paper-200 text-[11.5px] uppercase tracking-wide text-ink-400">
-                    <th className="py-2 pr-4 font-medium">If…</th>
-                    <th className="py-2 pr-4 font-medium">The router uses</th>
-                    <th className="py-2 font-medium">Why</th>
-                  </tr>
-                </thead>
-                <tbody className="text-[13px]">
-                  <tr className="border-b border-paper-100 align-top">
-                    <td className="py-3 pr-4 font-semibold text-charcoal-900">The fund has enabled the HSBC HKD stablecoin</td>
-                    <td className="py-3 pr-4 font-semibold text-brand-600">HSBC HKD stablecoin</td>
-                    <td className="py-3 leading-relaxed text-ink-700">
-                      One settlement money for every investor, HSBC client or not. It lands in the fund&apos;s wallet at any bank, at any hour,
-                      with no interbank step — and funds such as BlackRock&apos;s are built to accept licensed stablecoins.
-                    </td>
-                  </tr>
-                  <tr className="border-b border-paper-100 align-top">
-                    <td className="py-3 pr-4 font-semibold text-charcoal-900">Not yet, but the fund&apos;s cash is at HSBC (the CSOP class)</td>
-                    <td className="py-3 pr-4 text-charcoal-900">HSBC tokenised deposits, internally</td>
-                    <td className="py-3 leading-relaxed text-ink-700">Stays inside HSBC, 24/7, with no stablecoin issued and no reserve movement. <Source href={SRC.tds}>HSBC</Source></td>
-                  </tr>
-                  <tr className="border-b border-paper-100 align-top">
-                    <td className="py-3 pr-4 font-semibold text-charcoal-900">Not yet, the fund banks elsewhere, interbank window open</td>
-                    <td className="py-3 pr-4 text-charcoal-900">Cross-bank tokenised deposits via EnsembleTX</td>
-                    <td className="py-3 leading-relaxed text-ink-700">Works between participating banks, with interbank settlement through RTGS during the pilot — business hours today, 24/7 targeted by end-2026. <Source href={SRC.ensemble}>HKMA</Source></td>
-                  </tr>
-                  <tr className="align-top">
-                    <td className="py-3 pr-4 font-semibold text-charcoal-900">Not yet, fund elsewhere, window closed</td>
-                    <td className="py-3 pr-4 text-charcoal-900">Queue for the next payment window</td>
-                    <td className="py-3 leading-relaxed text-ink-700">Nothing debited meanwhile. This is the gap the stablecoin closes — the case for every fund accepting it.</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-
           <div className="grid gap-4 lg:grid-cols-3">
             <div className="rounded-2xl border border-paper-200 bg-paper-0 p-5">
               <p className="text-[14px] font-semibold text-charcoal-900">Why a treasurer would use it</p>
