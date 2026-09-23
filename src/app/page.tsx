@@ -180,37 +180,6 @@ export default function Page() {
         {/* THE DEMO */}
         <section id="package-a" className="scroll-mt-16 space-y-6">
           <FundRailDemo />
-
-          <div className="grid gap-4 lg:grid-cols-3">
-            <div className="rounded-2xl border border-paper-200 bg-paper-0 p-5">
-              <p className="text-[14px] font-semibold text-charcoal-900">Why a treasurer would use it</p>
-              <ul className="mt-2.5 space-y-2 text-[13px] leading-relaxed text-ink-700">
-                <li>Licensed issuers may not pay holders interest. <Source href={SRC.noInterest}>Morgan Lewis</Source> The money-market fund is where an idle balance earns — so a coin with a tokenised fund settlement service is worth more than one without.</li>
-                <li>Cash and units move together, so there is no moment where the money has gone and the units have not arrived.</li>
-                <li>One flow from the HKD account to units and back, with the stablecoin existing only as long as it is needed.</li>
-              </ul>
-            </div>
-            <div className="rounded-2xl border border-brand-100 bg-brand-50 p-5">
-              <p className="text-[14px] font-semibold text-charcoal-900">What is new versus HKDAP</p>
-              <p className="mt-2.5 text-[13px] leading-relaxed text-ink-700">
-                No exchange account in the middle for primary dealing: the issuer, the register and settlement are all HSBC roles that
-                already exist. The treasurer pays from an HKD account and never handles the stablecoin directly — and where a fund does not accept it
-                yet, HSBC falls back to tokenised deposits behind the scenes, which HKDAP cannot do.
-              </p>
-            </div>
-            <div className="rounded-2xl border border-paper-200 bg-paper-0 p-5">
-              <p className="flex items-center gap-1.5 text-[14px] font-semibold text-charcoal-900">
-                <TriangleAlert size={15} className="text-amber-500" />
-                The hard parts
-              </p>
-              <ul className="mt-2.5 space-y-2 text-[13px] leading-relaxed text-ink-700">
-                <li><strong className="font-semibold text-charcoal-900">The fund decides what it will accept.</strong> Each manager and trustee must approve the HSBC stablecoin for settlement.</li>
-                <li><strong className="font-semibold text-charcoal-900">The stablecoin does not change dealing hours.</strong> Cut-offs and pricing are the fund&apos;s rules.</li>
-                <li><strong className="font-semibold text-charcoal-900">Reserve and supply must reconcile continuously</strong> — stablecoins in circulation always equals reserve held.</li>
-                <li><strong className="font-semibold text-charcoal-900">Wallet onboarding</strong> for investors on the issuer&apos;s approved-wallet list and the fund&apos;s register.</li>
-              </ul>
-            </div>
-          </div>
         </section>
 
         {/* COIN VS TDS */}
