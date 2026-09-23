@@ -1,4 +1,4 @@
-export type Pkg = "Any use case" | "Fund investing";
+export type Pkg = "Stablecoin platform" | "Fund investing";
 
 export interface Persona {
   id: string;
@@ -58,12 +58,12 @@ export const personas: Persona[] = [
 ];
 
 export const epics: Epic[] = [
-  { id: "E1", name: "Issuing core — issue, redeem and reserves", pkg: "Any use case", release: "R0", goal: "Stablecoin exists only against HKD held in the segregated reserve, and is removed from circulation when redeemed." },
-  { id: "E2", name: "Wallet onboarding and the approved-wallet list", pkg: "Any use case", release: "R0", goal: "Only identified, checked parties can hold or receive the stablecoin." },
+  { id: "E1", name: "Issuing core — issue, redeem and reserves", pkg: "Stablecoin platform", release: "R0", goal: "Stablecoin exists only against HKD held in the segregated reserve, and is removed from circulation when redeemed." },
+  { id: "E2", name: "Wallet onboarding and the approved-wallet list", pkg: "Stablecoin platform", release: "R0", goal: "Only identified, checked parties can hold or receive the stablecoin." },
   { id: "E3", name: "Subscribing to fund units with the stablecoin", pkg: "Fund investing", release: "R1", goal: "A treasurer subscribes to tokenised fund units in one instruction, paid from an HKD account." },
   { id: "E4", name: "Redeeming fund units and returning to cash", pkg: "Fund investing", release: "R1", goal: "Units become stablecoin, and stablecoin becomes HKD at par, in one flow." },
-  { id: "E5", name: "Reserve checks, reporting and audit", pkg: "Any use case", release: "R0–R1", goal: "Every movement checked, reported to the client's systems and auditable afterwards." },
-  { id: "E6", name: "Client channels and approvals", pkg: "Any use case", release: "R1–R2", goal: "Orders arrive through HSBCnet or the client's own systems, and are approved exactly as the client configured." },
+  { id: "E5", name: "Reserve checks, reporting and audit", pkg: "Stablecoin platform", release: "R0–R1", goal: "Every movement checked, reported to the client's systems and auditable afterwards." },
+  { id: "E6", name: "Client channels and approvals", pkg: "Stablecoin platform", release: "R1–R2", goal: "Orders arrive through HSBCnet or the client's own systems, and are approved exactly as the client configured." },
 ];
 
 const ACCOUNT = "HKD ••4410";

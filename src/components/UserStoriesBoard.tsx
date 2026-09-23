@@ -5,9 +5,9 @@ import { useState } from "react";
 import { epics, personas, stories, type Pkg } from "@/lib/userStories";
 import { cn } from "@/lib/utils";
 
-const filters: ("All" | Pkg)[] = ["All", "Any use case", "Fund investing"];
+const filters: ("All" | Pkg)[] = ["All", "Stablecoin platform", "Fund investing"];
 const pkgTone: Record<Pkg, string> = {
-  "Any use case": "bg-paper-100 text-ink-700",
+  "Stablecoin platform": "bg-paper-100 text-ink-700",
   "Fund investing": "bg-blue-100 text-blue-600",
 };
 const prioTone = { Must: "text-brand-600", Should: "text-charcoal-900", Could: "text-ink-500" };

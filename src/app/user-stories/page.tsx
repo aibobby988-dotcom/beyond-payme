@@ -50,7 +50,7 @@ export default function UserStoriesPage() {
 
         <section className="space-y-6">
           <SectionHead eyebrow="Epics and stories" title="Six epics: four we would build for any stablecoin use case, two for fund investing">
-            <p>The <strong className="font-semibold text-charcoal-900">Any use case</strong> epics are the stablecoin itself — issuing, wallets, reserve checks, channels — and they get reused by whatever HSBC builds on the coin next. The <strong className="font-semibold text-charcoal-900">Fund investing</strong> epics are the two specific to this product. Click any story to open it in full; S-301, subscribing to fund units in one instruction, is open to start with.</p>
+            <p>The <strong className="font-semibold text-charcoal-900">Stablecoin platform</strong> epics — issuing, wallets, reserve checks, channels — are built once as a licensed issuer and carry over to whatever HSBC builds on the coin next. The <strong className="font-semibold text-charcoal-900">Fund investing</strong> epics are the two specific to this product. Click any story to open it in full; S-301, subscribing to fund units in one instruction, is open to start with.</p>
           </SectionHead>
           <UserStoriesBoard />
         </section>
