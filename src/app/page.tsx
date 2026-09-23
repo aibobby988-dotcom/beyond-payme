@@ -91,24 +91,6 @@ const timeline = [
   },
 ];
 
-const betterRows = [
-  {
-    area: "Fund subscriptions",
-    them: "Investor opens a trading account at a licensed exchange (OSL); Standard Chartered is custodian and tokenisation agent; HKDAP is the settlement money.",
-    us: "Treasurer subscribes straight from HSBCnet or its own treasury system. HSBC is issuer and, for the CSOP class, already registrar and tokenisation agent — no exchange account in the middle.",
-  },
-  {
-    area: "Distribution chain",
-    them: "Joint-venture issuer → exchanges and a bank distributor → client.",
-    us: "Issuer, bank and channel are the same institution: one onboarding, one set of controls, one audit trail.",
-  },
-  {
-    area: "Settlement asset",
-    them: "HKDAP only.",
-    us: "The HSBC HKD stablecoin as the settlement asset, with HSBC tokenised deposits as an internal fallback — chosen by the bank's settlement-routing service, never by the client.",
-  },
-];
-
 export default function Page() {
   return (
     <div className="min-h-screen">
@@ -195,51 +177,6 @@ export default function Page() {
                 <li><strong className="font-semibold text-charcoal-900">A licensed issuer</strong> — which Standard Chartered reached through a joint venture; HSBC holds it directly. <Source href={SRC.hsbcLicence}>HSBC</Source></li>
               </ul>
             </div>
-          </div>
-        </section>
-
-        {/* LEARNINGS */}
-        <section id="learnings" className="scroll-mt-16 space-y-6">
-          <SectionHead eyebrow="Copy, then improve" title="What Standard Chartered's HKDAP has taught the market">
-            <p>HSBC does not need to invent a use case. It needs to take the ones already proven and run them with fewer hand-offs.</p>
-          </SectionHead>
-
-          <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
-            {[
-              ["Utility first, then scale", "HKDAP went live only once there were things to do with it: fund subscriptions, supplier payments, treasury settlement."],
-              ["Institutions before retail", "Beta limited to institutions, corporates and professional investors; retail comes later through distributors."],
-              ["Funds are the first killer app", "ChinaAMC on 18 September, BlackRock's fund built to accept licensed stablecoins. A settlement money for tokenised MMFs is the entry point."],
-              ["Own the whole stack", "Standard Chartered is custodian, tokenisation agent, trustee and administrator around the stablecoin — the stablecoin is the thread, the services are the revenue."],
-              ["Two settlement moneys, one fund", "BlackRock's fund takes licensed stablecoins and tokenised deposits. Funds will not pick one — the bank that offers both wins the flow."],
-              ["Every flow is a closed loop", "Cash in → stablecoin issued → used → redeemed → removed from circulation, between named parties. That loop is what a licence review wants to see."],
-            ].map(([t, b]) => (
-              <div key={t} className="rounded-xl border border-paper-200 bg-paper-0 p-4">
-                <p className="text-[14px] font-semibold text-charcoal-900">{t}</p>
-                <p className="mt-1 text-[13px] leading-relaxed text-ink-500">{b}</p>
-              </div>
-            ))}
-          </div>
-
-          <div className="overflow-x-auto rounded-2xl border border-paper-200 bg-paper-0 p-5">
-            <p className="text-[14px] font-semibold text-charcoal-900">Where HSBC can do the same thing better</p>
-            <table className="mt-3 w-full min-w-[760px] border-collapse text-left">
-              <thead>
-                <tr className="border-b border-paper-200 text-[11.5px] uppercase tracking-wide text-ink-400">
-                  <th className="w-40 py-2 pr-4 font-medium">Use</th>
-                  <th className="py-2 pr-4 font-medium">HKDAP today</th>
-                  <th className="py-2 font-medium">The HSBC version</th>
-                </tr>
-              </thead>
-              <tbody>
-                {betterRows.map((r) => (
-                  <tr key={r.area} className="border-b border-paper-100 align-top text-[13px] last:border-0">
-                    <td className="py-3 pr-4 font-semibold text-charcoal-900">{r.area}</td>
-                    <td className="py-3 pr-4 leading-relaxed text-ink-700">{r.them}</td>
-                    <td className="bg-brand-50/60 px-3 py-3 leading-relaxed text-charcoal-900">{r.us}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
           </div>
         </section>
 
