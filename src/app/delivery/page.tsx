@@ -62,7 +62,7 @@ const raciRoles = ["Product (GPS Digital Money)", "GPS Technology", "Issuer ops 
 const raci: [string, string[]][] = [
   ["Issuer core and reserve reconciliation", ["A", "R", "R", "I", "C", "I", "C"]],
   ["Wallet approved-wallet list policy", ["A", "R", "I", "I", "R", "C", "C"]],
-  ["Fund cash-token enablement", ["A", "R", "I", "R", "C", "C", "I"]],
+  ["Fund accepts the stablecoin for settlement", ["A", "R", "I", "R", "C", "C", "I"]],
   ["DvP integration (TA / EnsembleTX)", ["A", "R", "I", "R", "I", "I", "C"]],
   ["Investor wallet onboarding", ["A", "R", "I", "R", "R", "I", "I"]],
   ["HKMA engagement per use case", ["R", "C", "C", "C", "A", "C", "C"]],
@@ -128,23 +128,10 @@ export default function DeliveryPage() {
       </PageHero>
 
       <main className="mx-auto max-w-[1400px] space-y-16 px-5 py-10 sm:px-8">
-        <section className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
-          {[
-            ["Minimum end-to-end pilot first", "One issuance, one fund purchase and one redemption working end to end in the sandbox before any feature is widened. Engineers call this a walking skeleton."],
-            ["Every release ends in a transaction", "Not a UAT sign-off — a real, measurable first: first subscription, first redemption."],
-            ["Build the issuer once", "The fund settlement service and the PayMe retail track share issuing, redeeming, the approved-wallet list and reserve checks."],
-            ["Controls are features", "Approved-wallet list, reconciliation and the kill switch ship in the MVP, not a later hardening phase."],
-          ].map(([t, b]) => (
-            <div key={t} className="rounded-xl border border-paper-200 bg-paper-0 p-4">
-              <p className="text-[14px] font-semibold text-charcoal-900">{t}</p>
-              <p className="mt-1 text-[13px] leading-relaxed text-ink-500">{b}</p>
-            </div>
-          ))}
-        </section>
 
         <section className="space-y-6">
           <SectionHead eyebrow="Release plan" title="Three releases, each with a go/no-go gate">
-            <p>Two-week sprints. R1 starts once R0 passes its gate; R2 then adds funds one at a time on the same rail.</p>
+            <p>Two-week sprints. R1 starts once R0 passes its gate; R2 then adds funds one at a time on the same service.</p>
           </SectionHead>
           <div className="grid gap-4 lg:grid-cols-3">
             {releases.map((r) => (
@@ -192,10 +179,10 @@ export default function DeliveryPage() {
             <table className="w-full min-w-[900px] border-collapse text-left text-[13px]">
               <thead>
                 <tr className="border-b border-paper-200 text-[11.5px] uppercase tracking-wide text-ink-400">
-                  <th className="px-5 py-2.5 font-medium">Dependency</th>
-                  <th className="px-3 py-2.5 font-medium">Owner</th>
-                  <th className="px-3 py-2.5 font-medium">Needed by</th>
-                  <th className="px-3 py-2.5 font-medium">Criticality</th>
+                  <th className="w-[24%] px-5 py-2.5 font-medium">Dependency</th>
+                  <th className="w-[16%] px-3 py-2.5 font-medium">Owner</th>
+                  <th className="w-24 whitespace-nowrap px-3 py-2.5 font-medium">Needed by</th>
+                  <th className="w-32 px-3 py-2.5 font-medium">Criticality</th>
                   <th className="px-5 py-2.5 font-medium">Handling</th>
                 </tr>
               </thead>
@@ -206,8 +193,8 @@ export default function DeliveryPage() {
                     <td className="px-3 py-3 text-ink-700">{d.owner}</td>
                     <td className="px-3 py-3 font-mono text-ink-700">{d.when}</td>
                     <td className="px-3 py-3">
-                      <span className={cn("rounded-full px-2 py-0.5 text-[11px] font-semibold", d.level === "high" ? "bg-rose-100 text-rose-600" : d.level === "med" ? "bg-amber-100 text-amber-500" : "bg-emerald-100 text-emerald-600")}>
-                        {d.level === "high" ? "Critical path" : d.level === "med" ? "Watch" : "Low"}
+                      <span className={cn("inline-block whitespace-nowrap rounded-full px-2 py-0.5 text-[11px] font-semibold", d.level === "high" ? "bg-rose-100 text-rose-600" : d.level === "med" ? "bg-amber-100 text-amber-500" : "bg-emerald-100 text-emerald-600")}>
+                        {d.level === "high" ? "Critical path" : d.level === "med" ? "Watch" : "Not blocking"}
                       </span>
                     </td>
                     <td className="px-5 py-3 leading-relaxed text-ink-700">{d.note}</td>
@@ -221,46 +208,6 @@ export default function DeliveryPage() {
             · <Source href="https://www.prnewswire.com/apac/news-releases/csop-debuts-inaugural-tokenised-money-market-fund-offering-302790000.html">CSOP and OSL</Source>{" "}
             · <Source href="https://stablecoininsider.org/hong-kong-policy-address-stablecoin-trading/">EnsembleTX 24/7 target</Source>
           </p>
-        </section>
-
-        <section className="space-y-6">
-          <SectionHead eyebrow="Who does what" title="RACI across the teams involved">
-            <p>A responsibility map (RACI): R does the work, A is accountable for it, C is consulted, I is kept informed. Illustrative team names, not HSBC&apos;s org chart.</p>
-          </SectionHead>
-          <div className="overflow-x-auto rounded-2xl border border-paper-200 bg-paper-0">
-            <table className="w-full min-w-[980px] border-collapse text-left text-[13px]">
-              <thead>
-                <tr className="border-b border-paper-200 text-[11px] uppercase tracking-wide text-ink-400">
-                  <th className="px-5 py-2.5 font-medium">Activity</th>
-                  {raciRoles.map((r) => (
-                    <th key={r} className="px-2 py-2.5 text-center font-medium">{r}</th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {raci.map(([act, cells]) => (
-                  <tr key={act} className="border-b border-paper-100 last:border-0">
-                    <td className="px-5 py-2.5 font-medium text-charcoal-900">{act}</td>
-                    {cells.map((c, i) => (
-                      <td key={i} className="px-2 py-2.5 text-center">
-                        <span
-                          className={cn(
-                            "inline-flex h-6 w-6 items-center justify-center rounded-md font-mono text-[12px] font-semibold",
-                            c === "A" && "bg-charcoal-900 text-paper-0",
-                            c === "R" && "bg-brand-500 text-paper-0",
-                            c === "C" && "bg-paper-100 text-ink-700",
-                            c === "I" && "text-ink-400"
-                          )}
-                        >
-                          {c}
-                        </span>
-                      </td>
-                    ))}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
         </section>
 
         <section className="space-y-6">
@@ -311,6 +258,109 @@ export default function DeliveryPage() {
         </section>
 
         <section className="grid gap-4 lg:grid-cols-2">
+          <div className="overflow-x-auto rounded-2xl border border-paper-200 bg-paper-0 p-5">
+            <p className="text-[14px] font-semibold text-charcoal-900">How success is measured</p>
+            <table className="mt-3 w-full min-w-[480px] border-collapse text-left text-[13px]">
+              <thead>
+                <tr className="border-b border-paper-200 text-[11px] uppercase tracking-wide text-ink-400">
+                  <th className="py-2 pr-3 font-medium">Measure</th>
+                  <th className="py-2 pr-3 font-medium">Target</th>
+                  <th className="py-2 font-medium">Type</th>
+                </tr>
+              </thead>
+              <tbody>
+                {measures.map((m) => (
+                  <tr key={m.m} className="border-b border-paper-100 last:border-0">
+                    <td className="py-2 pr-3 text-charcoal-900">{m.m}</td>
+                    <td className="py-2 pr-3 font-medium text-charcoal-900">{m.t}</td>
+                    <td className="py-2 text-ink-500">{m.k}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <div className="rounded-2xl border border-paper-200 bg-paper-0 p-5">
+            <p className="text-[14px] font-semibold text-charcoal-900">Team shape and governance (indicative)</p>
+            <div className="mt-3 space-y-3 text-[13px] leading-relaxed text-ink-700">
+              <p>
+                <strong className="font-semibold text-charcoal-900">Platform team</strong> — tech lead, three engineers, QA, site
+                reliability. Owns issuing, redeeming, the approved-wallet list and reserve checks for every use of the stablecoin.
+              </p>
+              <p>
+                <strong className="font-semibold text-charcoal-900">Fund settlement squad</strong> — product owner, business analyst, three
+                engineers, QA, a Securities Services specialist; financial-crime compliance part-time.
+              </p>
+              <p>
+                <strong className="font-semibold text-charcoal-900">Cadence</strong> — fortnightly demo of working software; monthly
+                steering; design authority for any change to keys or issuance; risk forum before each go-live.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <div className="rounded-2xl border border-paper-200 bg-paper-50 px-5 py-4">
+          <p className="text-[13px] leading-relaxed text-ink-700">
+            <span className="font-semibold text-charcoal-900">Below: the working detail.</span> Responsibilities, non-functional
+            requirements, definition of done and operational readiness — the artefacts a squad builds from, rather than the ones you
+            talk through in a review.
+          </p>
+        </div>
+
+        <section className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+          {[
+            ["Minimum end-to-end pilot first", "One issuance, one fund purchase and one redemption working end to end in the sandbox before any feature is widened. Engineers call this a walking skeleton."],
+            ["Every release ends in a transaction", "Not a UAT sign-off — a real, measurable first: first subscription, first redemption."],
+            ["Build the issuer once", "The fund settlement service and the PayMe retail track share issuing, redeeming, the approved-wallet list and reserve checks."],
+            ["Controls are features", "Approved-wallet list, reconciliation and the kill switch ship in the MVP, not a later hardening phase."],
+          ].map(([t, b]) => (
+            <div key={t} className="rounded-xl border border-paper-200 bg-paper-0 p-4">
+              <p className="text-[14px] font-semibold text-charcoal-900">{t}</p>
+              <p className="mt-1 text-[13px] leading-relaxed text-ink-500">{b}</p>
+            </div>
+          ))}
+        </section>
+
+        <section className="space-y-6">
+          <SectionHead eyebrow="Who does what" title="RACI across the teams involved">
+            <p>A responsibility map (RACI): R does the work, A is accountable for it, C is consulted, I is kept informed. Illustrative team names, not HSBC&apos;s org chart.</p>
+          </SectionHead>
+          <div className="overflow-x-auto rounded-2xl border border-paper-200 bg-paper-0">
+            <table className="w-full min-w-[980px] border-collapse text-left text-[13px]">
+              <thead>
+                <tr className="border-b border-paper-200 text-[11px] uppercase tracking-wide text-ink-400">
+                  <th className="px-5 py-2.5 font-medium">Activity</th>
+                  {raciRoles.map((r) => (
+                    <th key={r} className="px-2 py-2.5 text-center font-medium">{r}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {raci.map(([act, cells]) => (
+                  <tr key={act} className="border-b border-paper-100 last:border-0">
+                    <td className="px-5 py-2.5 font-medium text-charcoal-900">{act}</td>
+                    {cells.map((c, i) => (
+                      <td key={i} className="px-2 py-2.5 text-center">
+                        <span
+                          className={cn(
+                            "inline-flex h-6 w-6 items-center justify-center rounded-md font-mono text-[12px] font-semibold",
+                            c === "A" && "bg-charcoal-900 text-paper-0",
+                            c === "R" && "bg-brand-500 text-paper-0",
+                            c === "C" && "bg-paper-100 text-ink-700",
+                            c === "I" && "text-ink-400"
+                          )}
+                        >
+                          {c}
+                        </span>
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section className="grid gap-4 lg:grid-cols-2">
           <div className="rounded-2xl border border-paper-200 bg-paper-0 p-5">
             <p className="text-[14px] font-semibold text-charcoal-900">Non-functional requirements</p>
             <dl className="mt-3 divide-y divide-paper-100 text-[13px]">
@@ -350,46 +400,6 @@ export default function DeliveryPage() {
           </div>
         </section>
 
-        <section className="grid gap-4 lg:grid-cols-2">
-          <div className="overflow-x-auto rounded-2xl border border-paper-200 bg-paper-0 p-5">
-            <p className="text-[14px] font-semibold text-charcoal-900">How success is measured</p>
-            <table className="mt-3 w-full min-w-[480px] border-collapse text-left text-[13px]">
-              <thead>
-                <tr className="border-b border-paper-200 text-[11px] uppercase tracking-wide text-ink-400">
-                  <th className="py-2 pr-3 font-medium">Measure</th>
-                  <th className="py-2 pr-3 font-medium">Target</th>
-                  <th className="py-2 font-medium">Type</th>
-                </tr>
-              </thead>
-              <tbody>
-                {measures.map((m) => (
-                  <tr key={m.m} className="border-b border-paper-100 last:border-0">
-                    <td className="py-2 pr-3 text-charcoal-900">{m.m}</td>
-                    <td className="py-2 pr-3 font-medium text-charcoal-900">{m.t}</td>
-                    <td className="py-2 text-ink-500">{m.k}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          <div className="rounded-2xl border border-paper-200 bg-paper-0 p-5">
-            <p className="text-[14px] font-semibold text-charcoal-900">Team shape and governance (indicative)</p>
-            <div className="mt-3 space-y-3 text-[13px] leading-relaxed text-ink-700">
-              <p>
-                <strong className="font-semibold text-charcoal-900">Platform team</strong> — tech lead, three engineers, QA, site
-                reliability. Owns issuing, redeeming, the approved-wallet list and reserve checks for every use of the stablecoin.
-              </p>
-              <p>
-                <strong className="font-semibold text-charcoal-900">Fund-rail squad</strong> — product owner, business analyst, three
-                engineers, QA, a Securities Services specialist; financial-crime compliance part-time.
-              </p>
-              <p>
-                <strong className="font-semibold text-charcoal-900">Cadence</strong> — fortnightly demo of working software; monthly
-                steering; design authority for any change to keys or issuance; risk forum before each go-live.
-              </p>
-            </div>
-          </div>
-        </section>
       </main>
       <Footer />
     </div>
