@@ -101,10 +101,8 @@ export default function Page() {
             Beyond PayMe: a tokenised fund settlement service for HSBC&apos;s HKD stablecoin
           </h1>
           <p className="mt-4 max-w-3xl text-[15px] leading-relaxed text-paper-200">
-            HSBC holds one of Hong Kong&apos;s first two stablecoin licences, and will launch it inside PayMe for everyday payments.
-            This site is the other half: the same licence put to work for corporate clients. Standard Chartered&apos;s HKDAP proved the
-            first institutional use — buying tokenised money-market funds. This demo does the same thing better, on infrastructure HSBC
-            already runs.
+            HSBC&apos;s stablecoin is heading for PayMe and everyday payments. This site is the other half: the same licence settling
+            corporate fund trades — the first use Standard Chartered proved, done on infrastructure HSBC already runs.
           </p>
           <div className="mt-7 grid gap-3 sm:grid-cols-2">
             <a href="#package-a" className="group rounded-xl border border-charcoal-700 bg-charcoal-900 p-4 hover:border-brand-500">
