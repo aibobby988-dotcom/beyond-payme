@@ -104,8 +104,8 @@ export const routeInfo: Record<Route, { label: string; reason: string; asset: st
   },
   queued: {
     label: "No digital route — queue",
-    reason: "The fund does not accept the stablecoin and the bank-to-bank window is closed. The order waits for the next CHATS payment window; nothing is debited meanwhile.",
-    asset: "CHATS (next window)",
+    reason: "The fund does not accept the stablecoin and the bank-to-bank window is closed. The order waits for the next conventional payment window, on the next business day; nothing is debited meanwhile.",
+    asset: "Conventional payment (next window)",
   },
 };
 
@@ -117,7 +117,7 @@ export function routeReason(route: Route, inputs: RouteInputs): string {
         ? "the fund's cash is at HSBC, so the order settles internally in tokenised deposits."
         : route === "tds-crossbank"
           ? "the fund banks elsewhere, so deposits move bank to bank through EnsembleTX while the window is open."
-          : "no deposit route is open either, so the order waits for the next CHATS window.";
+          : "no deposit route is open either, so the order waits for the next payment window.";
     return `Stablecoin issuance is paused (a stablecoin-issuer operational incident, or a reserve check). New orders do not use the stablecoin; ${tail} Stablecoin already set aside for a live order still settles or unwinds normally.`;
   }
   return routeInfo[route].reason;
@@ -139,7 +139,6 @@ export function buildSystems(fund: Fund): SystemDef[] {
     { id: "nav", name: "Fund administration · NAV", owner: fund.servicer, role: "Strikes NAV at the valuation point" },
     { id: "dvp", name: "Settlement lock — cash and units move together", owner: "Settlement", role: "Sets aside cash and fund units, then transfers both in one step — or neither" },
     { id: "ensemble", name: "EnsembleTX (HKMA)", owner: "Market infrastructure · outside HSBC", role: "HKMA settlement and interoperability layer between institutions' platforms: delivery-versus-payment across banks, tokenised deposits settled through RTGS in the pilot, moving to central bank money — and, per the 2026 Policy Address, regulated stablecoins as an accepted settlement asset for tokenised funds" },
-    { id: "chats", name: "HKD CHATS (RTGS)", owner: "Market infrastructure · outside HSBC", role: "Hong Kong's interbank HKD payment system: operated by HKICL, settled across the banks' own settlement accounts at the HKMA, where a payment becomes final. Business days only. A bank's \"CHATS payment\" is its client-facing access to this shared system, not a product of its own" },
     { id: "core", name: "Core banking & general ledger", owner: "Books & reporting", role: "HKD accounts, holds, postings" },
     { id: "recon", name: "Reconciliation & regulatory reporting", owner: "Books & reporting", role: "Checks stablecoins in circulation match reserves; returns to the HKMA as licensee" },
   ];
@@ -153,11 +152,10 @@ export function buildGroups(fund: Fund, route: Route) {
     { owner: "HSBC fund services", ids: ["routing"] },
     { owner: fund.servicer, ids: ["ta", "nav"] },
     { owner: "Settlement", ids: ["dvp"] },
-    // Always shown, so the panel keeps the same shape in every scenario. Which of the
-    // two lights up says how the order reached the other institution: EnsembleTX when
-    // the register sits at another bank, CHATS when nothing digital is open, and
-    // neither when both legs are HSBC's own.
-    { owner: "Market infrastructure · outside HSBC", ids: ["ensemble", "chats"] },
+    // Always shown, so the panel keeps the same shape in every scenario. It lights up
+    // when the order has to reach another institution, and stays dark when both legs
+    // are HSBC's own.
+    { owner: "Market infrastructure · outside HSBC", ids: ["ensemble"] },
     { owner: "Books & reporting", ids: ["core", "recon"] },
   ];
 }
@@ -275,7 +273,7 @@ export function buildScenario(o: OrderSpec, inputs: RouteInputs, injected: Injec
     failAt = "route";
     failDetail = "No digital route: the fund does not accept the stablecoin and EnsembleTX's bank-to-bank window is closed";
     reversal = [
-      { label: "Order queued for next CHATS window", systemIds: ["chats"], detail: "Settles by conventional payment when CHATS opens; nothing debited meanwhile" },
+      { label: "Order queued for the next payment window", systemIds: ["router"], detail: "Settles by conventional payment when the next window opens; nothing debited meanwhile" },
       { label: "Client told expected settlement", systemIds: ["portal", "erp"], detail: "Status and expected time in HSBCnet and the ERP" },
     ];
   } else if (injected === "register" && o.side === "subscribe") {

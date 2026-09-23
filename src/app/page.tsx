@@ -233,7 +233,7 @@ export default function Page() {
               <ul className="mt-2.5 space-y-2 text-[13px] leading-relaxed text-ink-700">
                 <li><strong className="font-semibold text-charcoal-900">The fund hasn&apos;t enabled it</strong> — settle internally in deposits, or cross-bank through EnsembleTX.</li>
                 <li><strong className="font-semibold text-charcoal-900">Issuance is paused</strong> — a reserve break or an incident stops issuance. New orders route to deposits; coin already in escrow still settles or unwinds. Redemptions of existing coin keep working, so holders can always get cash back.</li>
-                <li><strong className="font-semibold text-charcoal-900">Neither rail is open</strong> — the order queues for the next CHATS window and nothing is debited meanwhile.</li>
+                <li><strong className="font-semibold text-charcoal-900">Neither rail is open</strong> — the order queues for the next payment window and nothing is debited meanwhile.</li>
               </ul>
               <p className="mt-2.5 text-[12.5px] leading-relaxed text-ink-500">
                 Try it: the <strong className="font-semibold text-ink-700">Stablecoin paused · deposits across banks</strong> scenario, or the

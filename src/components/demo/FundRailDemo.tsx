@@ -211,7 +211,7 @@ export function FundRailDemo() {
     if (!sc || !scOrder || scOrder.committed) return;
     if (phase === "completed") setBook((b) => applyOrder(b, sc));
     const outcome: { label: string; tone: Tone } =
-      phase === "completed" ? { label: "Settled", tone: "green" } : sc.queued ? { label: "Queued · next CHATS window", tone: "amber" } : { label: "Not completed · funds released", tone: "rose" };
+      phase === "completed" ? { label: "Settled", tone: "green" } : sc.queued ? { label: "Queued · next payment window", tone: "amber" } : { label: "Not completed · funds released", tone: "rose" };
     const fd = fundBy(scOrder.fund);
     const settledBook = phase === "completed" ? applyOrder(book, sc) : book;
     const positionAfter =
@@ -230,7 +230,7 @@ export function FundRailDemo() {
     if (o.outcome) return { step: o.outcome.tone === "green" ? 3 : 1, ...o.outcome };
     if (sc?.order.ref !== o.ref) return { step: 1, label: "Submitted", tone: "blue" };
     if (phase === "completed") return { step: 3, label: "Settled", tone: "green" };
-    if (phase === "failed") return sc.queued ? { step: 1, label: "Queued · next CHATS window", tone: "amber" } : { step: 1, label: "Not completed · funds released", tone: "rose" };
+    if (phase === "failed") return sc.queued ? { step: 1, label: "Queued · next payment window", tone: "amber" } : { step: 1, label: "Not completed · funds released", tone: "rose" };
     const st = sc.stages[runner.current];
     const confirmed = st && CONFIRMED_FROM.has(st.id);
     return { step: confirmed ? 2 : 1, label: confirmed ? "Confirmed" : "Submitted", tone: "blue", spin: !runner.paused };
@@ -261,7 +261,7 @@ export function FundRailDemo() {
       let last = "";
       log.forEach((l) => {
         if (l.tone === "fail") {
-          rows.push({ time: l.time, label: sc.queued ? "Queued for the next CHATS window — nothing debited" : "The fund could not accept the order", tone: sc.queued ? "warn" : "fail" });
+          rows.push({ time: l.time, label: sc.queued ? "Queued for the next payment window — nothing debited" : "The fund could not accept the order", tone: sc.queued ? "warn" : "fail" });
           return;
         }
         if (l.tone === "warn") {
