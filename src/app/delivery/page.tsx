@@ -71,11 +71,11 @@ const raci: [string, string[]][] = [
 
 const risks = [
   { r: "Coin supply and reserve drift apart", l: "Low", i: "Severe", m: "Reconcile after every movement; any break pauses issuance and pages the 24/7 rota", o: "Issuer ops" },
+  { r: "Issuer key compromise", l: "Low", i: "Severe", m: "Keys in tamper-resistant hardware, more than one person needed above a threshold, and a switch to stop issuance globally or per wallet", o: "GPS Technology" },
   { r: "Funds slow to accept a second stablecoin", l: "Med", i: "High", m: "Start with CSOP, where HSBC is trustee and registrar; BlackRock second", o: "Product" },
+  { r: "24/7 support cost", l: "High", i: "Med", m: "Automate unwinds; human decisions only on exceptions; staffed rota", o: "Issuer ops" },
   { r: "OSL's exclusive onboarding delays direct subscriptions on the CSOP class", l: "Med", i: "Med", m: "Confirm scope with Legal in R0; run the pilot inside the terms or once they lapse", o: "Legal · Product" },
   { r: "Stablecoin cannibalises tokenised deposits", l: "Med", i: "Med", m: "Clear roles: the stablecoin settles fund trades; tokenised deposits stay the corporate treasury product and the internal standby", o: "Product" },
-  { r: "24/7 support cost", l: "High", i: "Med", m: "Automate unwinds; human decisions only on exceptions; staffed rota", o: "Issuer ops" },
-  { r: "Issuer key compromise", l: "Low", i: "Severe", m: "Keys in tamper-resistant hardware, more than one person needed above a threshold, and a switch to stop issuance globally or per wallet", o: "GPS Technology" },
 ];
 
 const nfrs = [
@@ -211,7 +211,9 @@ export default function DeliveryPage() {
         </section>
 
         <section className="space-y-6">
-          <SectionHead eyebrow="RAID" title="Risks, assumptions, issues and dependencies (RAID)" />
+          <SectionHead eyebrow="RAID" title="Risks, assumptions, issues and dependencies (RAID)">
+            <p>Ordered worst case first: severe impact at the top, then by how likely each one is. The two severe risks are both low-likelihood and both have an automatic response — that is the point of listing them first.</p>
+          </SectionHead>
           <div className="overflow-x-auto rounded-2xl border border-paper-200 bg-paper-0">
             <table className="w-full min-w-[900px] border-collapse text-left text-[13px]">
               <thead>
