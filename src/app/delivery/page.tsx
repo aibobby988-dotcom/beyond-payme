@@ -112,7 +112,7 @@ const measures = [
   { m: "Reconciliation breaks", t: "0", k: "Control" },
   { m: "Straight-through rate (no human touch)", t: "> 95% (indicative)", k: "Efficiency" },
   { m: "Time from instruction to settlement", t: "Seconds, not days", k: "Client" },
-  { m: "Funds accepting the HSBC HKD stablecoin", t: "1 → 3 in the first year", k: "Adoption" },
+  { m: "Funds accepting the HSBC HKD stablecoin", t: "1 → 3 by H2 2026", k: "Adoption" },
   { m: "Investors outside HSBC buying fund units with the stablecoin", t: "First by R2", k: "Reach" },
   { m: "Failed trades unwound without a human", t: "100%", k: "Operations" },
 ];
@@ -260,8 +260,11 @@ export default function DeliveryPage() {
         </section>
 
         <section className="grid gap-4 lg:grid-cols-2">
-          <div className="overflow-x-auto rounded-2xl border border-paper-200 bg-paper-0 p-5">
-            <p className="text-[14px] font-semibold text-charcoal-900">How success is measured</p>
+          <div className="overflow-x-auto rounded-2xl border-2 border-brand-500 bg-paper-0 p-5 shadow-[0_0_0_4px_rgba(219,0,17,0.08)]">
+            <p className="flex items-center gap-2 text-[14px] font-semibold text-charcoal-900">
+              <span className="h-3 w-3 shrink-0 rotate-45 bg-brand-500" aria-hidden />
+              How success is measured
+            </p>
             <table className="mt-3 w-full min-w-[480px] border-collapse text-left text-[13px]">
               <thead>
                 <tr className="border-b border-paper-200 text-[11px] uppercase tracking-wide text-ink-400">
