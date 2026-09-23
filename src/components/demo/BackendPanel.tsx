@@ -33,10 +33,11 @@ export function BackendPanel({
 }) {
   const { scenario, statuses, reversalStatuses, log } = runner;
   const logRef = useRef<HTMLUListElement>(null);
-  // Presenters can open any step to talk through it; a fresh scenario clears their choices.
-  const [manual, setManual] = useState<Record<string, boolean>>({});
-  useEffect(() => setManual({}), [scenario?.key]);
-  const toggle = (id: string, isOpen: boolean) => setManual((m) => ({ ...m, [id]: !isOpen }));
+  // Presenters can open any step to talk through it; the choices belong to one
+  // scenario, so a new scenario starts from the automatic behaviour again.
+  const [opened, setOpened] = useState<{ key?: string; steps: Record<string, boolean> }>({ steps: {} });
+  const manual = opened.key === scenario?.key ? opened.steps : {};
+  const toggle = (id: string, isOpen: boolean) => setOpened({ key: scenario?.key, steps: { ...manual, [id]: !isOpen } });
 
   // Keep the newest audit entry in view while presenting.
   useEffect(() => {

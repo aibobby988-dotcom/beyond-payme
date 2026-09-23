@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowDown, ArrowRight, Ban, CheckCircle2, Eye, Layers, Server, ShieldCheck, TriangleAlert } from "lucide-react";
+import { ArrowDown, ArrowRight, Ban, CheckCircle2, ShieldCheck, TriangleAlert } from "lucide-react";
 import { FundRailDemo } from "@/components/demo/FundRailDemo";
 import { Footer, SectionHead, Source } from "@/components/ui";
 import { cn } from "@/lib/utils";
@@ -119,11 +119,10 @@ export default function Page() {
             Beyond PayMe: a tokenised fund settlement service for HSBC&apos;s HKD stablecoin
           </h1>
           <p className="mt-4 max-w-3xl text-[15px] leading-relaxed text-paper-200">
-            HSBC holds one of Hong Kong&apos;s first two stablecoin issuer licences, and has said its stablecoin will launch inside
-            PayMe — its consumer wallet — for everyday payments. This site is about the other half: what the same licence does for
-            corporate clients. Standard Chartered&apos;s HKDAP has spent six weeks showing what institutions actually use a licensed
-            stablecoin for, and the first answer is buying tokenised money-market funds. This demo copies that use and does it better
-            with what HSBC already runs.
+            HSBC holds one of Hong Kong&apos;s first two stablecoin licences, and will launch it inside PayMe for everyday payments.
+            This site is the other half: the same licence put to work for corporate clients. Standard Chartered&apos;s HKDAP proved the
+            first institutional use — buying tokenised money-market funds. This demo does the same thing better, on infrastructure HSBC
+            already runs.
           </p>
           <div className="mt-7 grid gap-3 sm:grid-cols-2">
             <a href="#package-a" className="group rounded-xl border border-charcoal-700 bg-charcoal-900 p-4 hover:border-brand-500">
@@ -145,22 +144,6 @@ export default function Page() {
       </header>
 
       <main className="mx-auto max-w-[1400px] space-y-16 px-5 py-10 sm:px-8">
-        <section className="grid gap-3 md:grid-cols-3">
-          {[
-            { icon: Eye, title: "Left: the client's HSBCnet (mock)", body: "Invest, Orders and Positions; approvers get an Approvals queue and approve on the phone beside it. Orders show four real-world statuses, with a step-by-step settlement view as a proposed extra." },
-            { icon: Server, title: "Right: what the bank is doing", body: "Every system touched, every stage that must pass before finality, and the audit trail being written as it happens." },
-            { icon: Layers, title: "Scenario buttons, or the same run as a flow chart", body: "One click plays a whole journey — ticket, authorisation, settlement. Switch to the flow chart mid-run; pause to explain any stage." },
-          ].map((c) => (
-            <div key={c.title} className="flex gap-3 rounded-xl border border-paper-200 bg-paper-0 p-4">
-              <c.icon size={18} className="mt-0.5 shrink-0 text-brand-500" />
-              <div>
-                <p className="text-[14px] font-semibold text-charcoal-900">{c.title}</p>
-                <p className="mt-1 text-[13px] leading-relaxed text-ink-500">{c.body}</p>
-              </div>
-            </div>
-          ))}
-        </section>
-
         {/* MARKET */}
         <section id="market" className="scroll-mt-16 space-y-6">
           <SectionHead eyebrow="Context · what has happened" title="Hong Kong's licensed stablecoin market, as of 22 September 2026">
