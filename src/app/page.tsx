@@ -179,45 +179,6 @@ export default function Page() {
 
         {/* THE DEMO */}
         <section id="package-a" className="scroll-mt-16 space-y-6">
-          <SectionHead eyebrow="The demo · Tokenised fund settlement service" title="A treasurer invests idle HKD in a tokenised money-market fund — and the stablecoin does the settling">
-            <p>
-              The same loop crypto markets run every day with USDC and tokenised Treasury funds — issue, buy, sell, remove from circulation — but
-              with every party named, a licensed issuer, and delivery-versus-payment done by the transfer agent or EnsembleTX. The
-              treasurer pays from an HKD account and never handles a stablecoin; HSBC issues it, settles with it, then removes it from circulation. It is the
-              use the Policy Address has just endorsed, and the one both ChinaAMC and BlackRock have built for.
-            </p>
-          </SectionHead>
-
-          <div className="overflow-x-auto rounded-2xl border border-paper-200 bg-paper-0 p-5">
-            <p className="text-[14px] font-semibold text-charcoal-900">Which funds first — a pipeline, not a catalogue</p>
-            <table className="mt-3 w-full min-w-[760px] border-collapse text-left">
-              <thead>
-                <tr className="border-b border-paper-200 text-[11.5px] uppercase tracking-wide text-ink-400">
-                  <th className="py-2 pr-4 font-medium">Fund</th>
-                  <th className="py-2 pr-4 font-medium">Why</th>
-                  <th className="py-2 font-medium">What it takes</th>
-                </tr>
-              </thead>
-              <tbody className="text-[13px]">
-                <tr className="border-b border-paper-100 align-top">
-                  <td className="py-3 pr-4 font-semibold text-charcoal-900">1 · CSOP HKD Money Market ETF, tokenised class</td>
-                  <td className="py-3 pr-4 leading-relaxed text-ink-700">HSBC already runs the register, trusteeship and tokenisation — the easiest first live transaction. <Source href={SRC.csop}>CSOP</Source></td>
-                  <td className="py-3 leading-relaxed text-ink-700">Add the HSBC HKD stablecoin as an accepted settlement money; mind OSL&apos;s six-month exclusive onboarding from June.</td>
-                </tr>
-                <tr className="border-b border-paper-100 align-top">
-                  <td className="py-3 pr-4 font-semibold text-charcoal-900">2 · BlackRock HKD Digital Liquidity Fund</td>
-                  <td className="py-3 pr-4 leading-relaxed text-ink-700">Built to deal in licensed stablecoins and tokenised deposits; the strongest ecosystem signal. <Source href={SRC.blackrock}>source</Source></td>
-                  <td className="py-3 leading-relaxed text-ink-700">BlackRock and its trustee (Standard Chartered) enable a second licensed stablecoin. In the demo, HSBC is onboarded as a distributor too — the same fund, two licensed coins. Launch date not yet announced.</td>
-                </tr>
-                <tr className="align-top">
-                  <td className="py-3 pr-4 font-semibold text-charcoal-900">3 · ChinaAMC HKD Digital Money Market Fund</td>
-                  <td className="py-3 pr-4 leading-relaxed text-ink-700">Hong Kong&apos;s first retail tokenised fund; already dealing in HKDAP. <Source href={SRC.chinaamcFund}>source</Source></td>
-                  <td className="py-3 leading-relaxed text-ink-700">Proves the HSBC HKD stablecoin works in a fund HSBC does not service — the interoperability test. This fund has already been subscribed with cross-bank tokenised deposits (Nov 2025) and with HKDAP (Sep 2026), so the coin would be its third settlement money.</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
           <FundRailDemo />
 
           <div className="rounded-2xl border border-paper-200 bg-paper-0 p-5">
