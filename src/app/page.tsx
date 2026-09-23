@@ -236,7 +236,7 @@ export default function Page() {
                 <li><strong className="font-semibold text-charcoal-900">Neither rail is open</strong> — the order queues for the next CHATS window and nothing is debited meanwhile.</li>
               </ul>
               <p className="mt-2.5 text-[12.5px] leading-relaxed text-ink-500">
-                Try it: the <strong className="font-semibold text-ink-700">Stablecoin paused · deposits instead</strong> scenario, or the
+                Try it: the <strong className="font-semibold text-ink-700">Stablecoin paused · deposits across banks</strong> scenario, or the
                 issuance switch on the bank side.
               </p>
             </div>

@@ -477,7 +477,7 @@ export const stories: Story[] = [
     so: "orders still settle digitally while funds are being onboarded",
     priority: "Should",
     points: 8,
-    trace: "Demo · scenario “Fund won’t take stablecoin · deposits instead”",
+    trace: "Demo · scenario “Fund won’t take stablecoin · deposits inside HSBC”",
     context: "No fund accepts an HSBC stablecoin today. The service has to work during the period when some do and some do not, without the client noticing the difference.",
     criteria: [
       {
@@ -814,7 +814,7 @@ export const stories: Story[] = [
     so: "an issuer incident degrades the service instead of stopping it",
     priority: "Must",
     points: 5,
-    trace: "Demo · scenario “Stablecoin paused · deposits instead”",
+    trace: "Demo · scenario “Stablecoin paused · deposits across banks”",
     context: "Issuance can stop for good reasons: a reserve break, or an operational incident. Clients should not carry that — tokenised deposits stand by, with conventional payment behind them.",
     criteria: [
       {

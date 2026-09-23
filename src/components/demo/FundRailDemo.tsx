@@ -108,8 +108,8 @@ const journeys: Journey[] = [
   { group: "controls", title: "From treasury system (API)", draft: { fund: "chinaamc", side: "subscribe", amount: 50_000_000 }, inputs: ON, injected: "none", channel: "api" },
   { group: "fallback", title: "After hours · waits for the next window", draft: { fund: "chinaamc", side: "subscribe", amount: 50_000_000 }, inputs: { coinEnabled: false, windowOpen: false, coinPaused: false }, injected: "none" },
   { group: "failure", title: "Fund rejects · auto-unwind", draft: { fund: "chinaamc", side: "subscribe", amount: 50_000_000 }, inputs: ON, injected: "register" },
-  { group: "fallback", title: "Fund won't take stablecoin · deposits instead", draft: { fund: "chinaamc", side: "subscribe", amount: 50_000_000 }, inputs: { coinEnabled: false, windowOpen: true, coinPaused: false }, injected: "none" },
-  { group: "fallback", title: "Stablecoin paused · deposits instead", draft: { fund: "csop", side: "subscribe", amount: 50_000_000 }, inputs: { coinEnabled: true, windowOpen: true, coinPaused: true }, injected: "none" },
+  { group: "fallback", title: "Fund won't take stablecoin · deposits inside HSBC", draft: { fund: "csop", side: "subscribe", amount: 50_000_000 }, inputs: { coinEnabled: false, windowOpen: true, coinPaused: false }, injected: "none" },
+  { group: "fallback", title: "Stablecoin paused · deposits across banks", draft: { fund: "chinaamc", side: "subscribe", amount: 50_000_000 }, inputs: { coinEnabled: true, windowOpen: true, coinPaused: true }, injected: "none" },
 ];
 
 const AMOUNTS = [10_000_000, 20_000_000, 50_000_000, 150_000_000];
