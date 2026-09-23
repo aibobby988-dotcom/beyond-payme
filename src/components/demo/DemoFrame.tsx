@@ -159,7 +159,7 @@ export function DemoFrame({
               <p className="text-[11px] font-semibold uppercase tracking-wider text-ink-500">What the client sees</p>
               <Badge tone="neutral">{channel}</Badge>
             </div>
-            {client}
+            <div className="min-h-[560px]">{client}</div>
           </div>
           {leftFooter}
         </div>

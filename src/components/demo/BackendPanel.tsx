@@ -68,7 +68,7 @@ export function BackendPanel({
   return (
     <div className="flex flex-col gap-3">
       <div className="grid gap-3 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
-      <div>
+      <div className="min-w-0">
         <p className="mb-2 text-[11px] font-semibold uppercase tracking-wider text-paper-200">
           Systems this touches · illustrative
         </p>
@@ -107,13 +107,13 @@ export function BackendPanel({
         </div>
       </div>
 
-      <div className="flex flex-col gap-3">
+      <div className="flex min-w-0 flex-col gap-3">
       <div className="rounded-lg border border-charcoal-700 bg-charcoal-900">
         <p className="flex items-baseline gap-2 border-b border-charcoal-700 px-3 py-2 text-[11px] font-semibold uppercase tracking-wider text-paper-200">
           Stages before finality
           <span className="ml-auto text-[10px] font-normal normal-case tracking-normal text-ink-400">Click any step to open it</span>
         </p>
-        <ol className="divide-y divide-charcoal-800">
+        <ol className="min-h-[430px] divide-y divide-charcoal-800">
           {stages.length === 0 && (
             <li className="px-3 py-6 text-center text-[12px] text-ink-400">Choose a scenario to run.</li>
           )}
@@ -202,7 +202,7 @@ export function BackendPanel({
         <p className="border-b border-charcoal-700 px-3 py-2 text-[11px] font-semibold uppercase tracking-wider text-paper-200">
           Event log · immutable audit trail
         </p>
-        <ul ref={logRef} className="max-h-56 space-y-1.5 overflow-y-auto px-3 py-2.5 font-mono text-[11px] leading-relaxed [scrollbar-color:#3a3f45_transparent]">
+        <ul ref={logRef} className="h-56 space-y-1.5 overflow-y-auto px-3 py-2.5 font-mono text-[11px] leading-relaxed [scrollbar-color:#3a3f45_transparent]">
           {log.length === 0 && <li className="text-ink-400">Waiting for an instruction…</li>}
           {log.map((l, i) => (
             <li key={i} className="flex gap-2">

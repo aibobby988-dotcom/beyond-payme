@@ -153,14 +153,11 @@ export function buildGroups(fund: Fund, route: Route) {
     { owner: "HSBC fund services", ids: ["routing"] },
     { owner: fund.servicer, ids: ["ta", "nav"] },
     { owner: "Settlement", ids: ["dvp"] },
-    // Anything that crosses institutions meets the HKMA's layer: the stablecoin route
-    // when the register sits at another bank, deposits when they move bank to bank,
-    // and CHATS when nothing digital is open.
-    ...(route === "queued"
-      ? [{ owner: "HKMA market infrastructure", ids: ["chats"] }]
-      : route === "tds-crossbank" || (route === "coin" && !fund.hsbcServiced)
-        ? [{ owner: "HKMA market infrastructure", ids: ["ensemble"] }]
-        : []),
+    // Always shown, so the panel keeps the same shape in every scenario. Which of the
+    // two lights up says how the order reached the other institution: EnsembleTX when
+    // the register sits at another bank, CHATS when nothing digital is open, and
+    // neither when both legs are HSBC's own.
+    { owner: "HKMA market infrastructure", ids: ["ensemble", "chats"] },
     { owner: "Books & reporting", ids: ["core", "recon"] },
   ];
 }
