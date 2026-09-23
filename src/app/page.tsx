@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowDown, ArrowRight, Ban, CheckCircle2, ShieldCheck, TriangleAlert } from "lucide-react";
+import { ArrowDown, ArrowRight, TriangleAlert } from "lucide-react";
 import { FundRailDemo } from "@/components/demo/FundRailDemo";
 import { Footer, SectionHead, Source } from "@/components/ui";
 import { cn } from "@/lib/utils";
@@ -384,107 +384,6 @@ export default function Page() {
           </div>
         </section>
 
-        {/* ASSUMPTIONS */}
-        <section id="assumptions" className="scroll-mt-16 space-y-6">
-          <SectionHead eyebrow="What the demo assumes" title="Assumptions behind every scenario">
-            <p>Stated up front, so any of them can be challenged. Real facts are sourced above; everything else is illustrative.</p>
-          </SectionHead>
-          <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
-            {[
-              ["The client", ["Party A Holdings (HK) Ltd, a large corporate treasury banking with HSBC Hong Kong", "Agreed at onboarding that HSBC may settle fund trades with its stablecoin — orders never ask about settlement", "Illustrative starting position: HK$200m cash, HK$120m in CSOP, HK$80m in BlackRock"]],
-              ["Authorisation", ["Party A's System Administrators set the rules; HSBC enforces them", "HSBCnet default: the person who creates an order cannot approve it", "A group B approver signs up to HK$100m; above that, a group A approver too", "Single-person approval is off unless the client switches it on", "Orders can also arrive already approved from Party A's treasury system via API", "Approvers approve on HSBCnet Mobile with a security code (mock)"]],
-              ["The funds", ["Real names and service roles: HSBC is trustee, registrar and tokenisation agent for the CSOP class; Standard Chartered services BlackRock and ChinaAMC", "Assumed: each fund has enabled the HSBC HKD stablecoin as a settlement money — none has yet", "Demo scenario: HSBC onboarded as a BlackRock distributor alongside Standard Chartered", "Yields, cut-offs and NAVs are illustrative"]],
-              ["Dealing and settlement", ["Orders arrive before the cut-off on a weekday and settle the same day at the valuation point (fast-forwarded)", "Stablecoin issued when the order is approved, set aside for settlement, then exchanged for fund units in one step", "Sale proceeds arrive as stablecoin and are converted straight back to HKD at par"]],
-              ["The bank", ["HSBC's stablecoin is live — it is announced for H2 2026, not yet launched", "HSBC's settlement-routing service picks the stablecoin; tokenised deposits are the standby, used when a fund has not enabled the coin or issuance is paused", "System names are generic, not HSBC's internal systems; the ledger transaction hash is made up", "Illustrative issuer total of HK$1.25bn stablecoins in circulation, always matched 1:1 by reserve"]],
-              ["Rules and market infrastructure (real)", ["Licensed issuers can't pay holders interest; reserves are held in a segregated pool; redemptions within one business day", "EnsembleTX interbank settlement runs through RTGS in the pilot; HKD CHATS runs on business days", "Fund orders use ISO 20022 setr.010/012 (subscribe) and setr.004/006 (redeem)"]],
-            ].map(([title, items]) => (
-              <div key={title as string} className="rounded-xl border border-paper-200 bg-paper-0 p-4">
-                <p className="text-[14px] font-semibold text-charcoal-900">{title as string}</p>
-                <ul className="mt-2 space-y-1.5 text-[12.5px] leading-relaxed text-ink-700">
-                  {(items as string[]).map((i) => (
-                    <li key={i} className="flex gap-2">
-                      <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-brand-500" />
-                      {i}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* LICENCE REVIEW */}
-        <section id="controls" className="scroll-mt-16 space-y-6">
-          <SectionHead eyebrow="For the HKMA conversation" title="Why this service survives a licence review">
-            <p>It uses the stablecoin for settlement between identified parties — the stablecoin is the payment, the fund is the investment. Not a savings product, not a shadow bank.</p>
-          </SectionHead>
-          <div className="grid gap-4 lg:grid-cols-2">
-            <div className="rounded-2xl border border-paper-200 bg-paper-0 p-5">
-              <p className="flex items-center gap-1.5 text-[14px] font-semibold text-charcoal-900">
-                <ShieldCheck size={15} className="text-emerald-600" /> Controls in the demo
-              </p>
-              <ul className="mt-2.5 space-y-2 text-[13px] leading-relaxed text-ink-700">
-                {[
-                  "Named wallets only — every holder is identified and on the issuer's approved-wallet list",
-                  "Screening and travel-rule data on every transfer",
-                  "Stablecoin issued only against HKD received into segregated reserves, and removed from circulation on redemption at par",
-                  "Stablecoins in circulation reconciled to reserve after every movement",
-                  "Authorisation exactly as the client set it in HSBCnet — two people by default, sole control only by the client's opt-in",
-                  "Orders from a client's treasury system accepted only with a verified message signature",
-                  "Full audit trail tied to the order",
-                ].map((c) => (
-                  <li key={c} className="flex gap-2">
-                    <CheckCircle2 size={14} className="mt-0.5 shrink-0 text-emerald-600" />
-                    {c}
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className="rounded-2xl border border-paper-200 bg-paper-0 p-5">
-              <p className="text-[14px] font-semibold text-charcoal-900">One sentence for the HKMA letter</p>
-              <div className="mt-2.5 space-y-3 text-[13px] leading-relaxed text-ink-700">
-                <p>
-                  Identified investors use licensed HKD coin to subscribe and redeem tokenised HKD money-market funds, settled
-                  delivery-versus-payment, with the stablecoin issued for the trade and removed from circulation afterwards.
-                </p>
-              </div>
-              <p className="mt-4 text-[13px] font-semibold text-charcoal-900">Deliberately out of scope for now</p>
-              <ul className="mt-2 space-y-1.5 text-[13px] text-ink-700">
-                {[
-                  "Retail distribution — already HSBC's PayMe and HK app plan",
-                  "Cross-border corridors and a USD coin — a later phase",
-                  "Anything that pays holders a return on the coin itself",
-                  "Business payments and invoice escrow — a candidate second use case",
-                ].map((c) => (
-                  <li key={c} className="flex gap-2">
-                    <Ban size={14} className="mt-0.5 shrink-0 text-ink-400" />
-                    {c}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </section>
-
-        {/* DELIVERY */}
-        <section id="delivery" className="scroll-mt-16 space-y-6">
-          <SectionHead eyebrow="From demo to first transaction" title="How it gets delivered, and the user stories behind it">
-            <p>Build the issuing plumbing once — issue, redeem, approved-wallet list, reserve checks — then one thin slice to the first live fund trade.</p>
-          </SectionHead>
-          <div className="grid gap-4 md:grid-cols-2">
-            {[
-              { href: "/delivery/", title: "Delivery plan", body: "Release slices with go/no-go gates, critical path, RACI, RAID log, non-functional requirements, operational readiness and success measures." },
-              { href: "/user-stories/", title: "User stories", body: "Personas, six epics and twenty user stories with Given/When/Then acceptance criteria — each traced to the demo scenario or stage it describes." },
-            ].map((c) => (
-              <Link key={c.href} href={c.href} className="group rounded-2xl border border-paper-200 bg-paper-0 p-5 hover:border-brand-500">
-                <p className="flex items-center gap-1.5 text-[15px] font-semibold text-charcoal-900">
-                  {c.title} <ArrowRight size={15} className="text-brand-500 transition-transform group-hover:translate-x-0.5" />
-                </p>
-                <p className="mt-1.5 text-[13px] leading-relaxed text-ink-500">{c.body}</p>
-              </Link>
-            ))}
-          </div>
-        </section>
       </main>
 
       <Footer />
