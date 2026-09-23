@@ -863,7 +863,7 @@ export const orderFields = [
   ["settlementAccount", "account", "Yes", "HKD ••4410", "Must belong to the ordering entity"],
   ["settlement", "enum", "No", "AUTO", "Always AUTO — HSBC chooses the settlement asset; the client never selects one"],
   ["investorWallet", "wallet id", "Yes", "held by HSBC", "On the approved-wallet list; due diligence complete"],
-  ["dealingDate", "date", "Yes", "22 Sep 2026", "After the cut-off it rolls to the next dealing day, shown before the client confirms"],
+  ["dealingDate", "date", "Yes", "23 Sep 2026", "After the cut-off it rolls to the next dealing day, shown before the client confirms"],
   ["onRedeem", "enum", "No", "RETURN_TO_CASH", "RETURN_TO_CASH (convert back to HKD) · HOLD"],
   ["channel", "enum", "Yes", "PORTAL", "PORTAL · API (approved in the client's own system; signature verified)"],
   ["approvers", "user ids", "Yes", "a.chan, b.lau", "Per the client's approval rules; the approver must differ from the creator unless single-person approval is switched on"],

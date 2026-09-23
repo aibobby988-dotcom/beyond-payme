@@ -125,7 +125,7 @@ export default function Page() {
       <main className="mx-auto max-w-[1400px] space-y-16 px-5 py-10 sm:px-8">
         {/* MARKET */}
         <section id="market" className="scroll-mt-16 space-y-6">
-          <SectionHead eyebrow="Context · what has happened" title="Hong Kong's licensed stablecoin market, as of 22 September 2026">
+          <SectionHead eyebrow="Context · what has happened" title="Hong Kong's licensed stablecoin market, as of 23 September 2026">
             <p>
               The licence was never the hard part. A regulated stablecoin with nothing to buy and nobody to pay is a compliance exercise,
               not money. Since August, the Standard Chartered camp has been filling that gap one use case at a time — and the

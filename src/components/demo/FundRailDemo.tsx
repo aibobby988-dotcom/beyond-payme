@@ -460,7 +460,7 @@ export function FundRailDemo() {
         </div>
         <span className="flex items-center gap-1.5 text-[11.5px] text-ink-500">
           <Clock size={12} />
-          {sc ? `${sc.clockStart.label} · ${clock}` : "Tue 22 Sep · 10:31"} HKT
+          {sc ? `${sc.clockStart.label} · ${clock}` : "Wed 23 Sep · 10:31"} HKT
         </span>
       </div>
       <div className="mt-2 flex flex-wrap items-center justify-between gap-2">

@@ -37,7 +37,7 @@ export function Footer() {
       <div className="mx-auto max-w-[1400px] px-5 py-6 text-[12px] leading-relaxed text-ink-500 sm:px-8">
         Independent concept prototype for discussion. Not affiliated with or endorsed by HSBC. Clients, balances, prices, limits,
         system names, timings and team shapes are simulated or indicative; the integration map describes plausible system roles, not
-        HSBC&apos;s actual internal architecture. Market facts link to public sources as of 22 September 2026; some are news
+        HSBC&apos;s actual internal architecture. Market facts link to public sources as of 23 September 2026; some are news
         summaries rather than primary releases.
       </div>
     </footer>
